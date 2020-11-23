@@ -4,16 +4,18 @@ package com.tmobile.assessment.controller;
 import com.tmobile.assessment.model.*;
 import com.tmobile.assessment.service.*;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/sum")
+@RequestMapping("/info")
 @Api(tags = {"Assessment Controller"})
 @SwaggerDefinition(info = @Info(title = "", version = "", description = "Driver Controller"))
 public class AssessController {
 
     private AssessService assessService;
 
+    @Autowired
     public AssessController(AssessService assessService) {
         this.assessService = assessService;
     }
@@ -25,12 +27,12 @@ public class AssessController {
         return "hello to your assessment ";
     }
 
-    @GetMapping("/{a}/{b}")
+    @GetMapping(value = "/sum/{a}/{b}")
     public String getSum(@PathVariable int a, @PathVariable int b){
         return a+b+"";
     }
 
-    @GetMapping("/{a}/{b}")
+    @GetMapping(value = "/{a}")
     public NumberInfo getInfo(@PathVariable int a){
 
         return assessService.getInfo(a);
